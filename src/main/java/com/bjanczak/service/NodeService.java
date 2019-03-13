@@ -1,6 +1,6 @@
 package com.bjanczak.service;
 
-import com.bjanczak.model.Node;
+import com.bjanczak.model.dto.NodeDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,25 +8,25 @@ import java.util.Optional;
 public interface NodeService {
 
     /**
-     * Get all nodes list
+     * Get root with all children nodes
      *
-     * @return list of all nodes List<Node>
+     * @return list with root with all nodes List<NodeDto>
      */
-    public List<Node> findAll();
+    public List<NodeDto> getRootWithChildren();
 
     /**
      * Find node by id
      *
      * @param id Long
-     * @return node Optional<Node>
+     * @return node Optional<NodeDto>
      */
-    public Optional<Node> findOneById(Long id);
+    public Optional<NodeDto> findOneById(Long id);
 
     /**
      * Save node
      *
      * @param node Node
-     * @return saved node Node
+     * @return saved node NodeDto
      */
-    public Node saveNode(Node node);
+    public void saveNode(NodeDto node);
 }

@@ -1,7 +1,7 @@
 package com.bjanczak.controller;
 
 import com.bjanczak.exception.NodeNotFoundException;
-import com.bjanczak.model.Node;
+import com.bjanczak.model.dto.NodeDto;
 import com.bjanczak.service.NodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,23 +15,22 @@ public class NodeController {
     @Autowired
     private NodeService nodeService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/nodes", method = RequestMethod.GET)
-    public List<Node> getAllNodes() {
-        return nodeService.findAll();
+    public List<NodeDto> getAllNodes() {
+        return nodeService.getRootWithChildren();
     }
 
     @RequestMapping(value = "/node", method = RequestMethod.POST)
-    public Node createNode(@Valid @RequestBody Node node) {
-        return nodeService.saveNode(node);
+    public void createNode(@Valid @RequestBody NodeDto node) {
+        nodeService.saveNode(node);
     }
 
     @RequestMapping("/persons/{id}")
-    public Node updateNode(@PathVariable(value = "id") Long id, @Valid @RequestBody Node nodeDetails) {
-        Node updatedNode = nodeService.findOneById(id).orElseThrow(() -> new NodeNotFoundException(id));
+    public void updateNode(@PathVariable(value = "id") Long id, @Valid @RequestBody NodeDto nodeDetails) {
+        NodeDto updatedNode = nodeService.findOneById(id).orElseThrow(() -> new NodeNotFoundException(id));
 
         updatedNode.setValue(nodeDetails.getValue());
-        updatedNode.setParent(updatedNode.getParent());
-
-        return nodeService.saveNode(updatedNode);
+        nodeService.saveNode(updatedNode);
     }
 }

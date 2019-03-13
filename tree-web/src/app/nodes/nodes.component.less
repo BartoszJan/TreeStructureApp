@@ -1,0 +1,30 @@
+:host {
+	display: block ;
+	font-size: 18px ;
+	margin-top: 2%;
+	margin-left: 4%;
+}
+
+.node {
+	&__value {
+		color: red ;
+		cursor: pointer ;
+		text-decoration: underline ;
+	}
+
+	&__children {
+		border-left: 3px solid #CCCCCC ;
+		margin: 5px 0px 5px 30px ;
+		padding-left: 10px ;
+	}
+
+	&--selected {
+		> .node {
+			&__value {
+				background-color: red ;
+				color: white ;
+				font-weight: bold ;
+			}
+		}
+	}
+}

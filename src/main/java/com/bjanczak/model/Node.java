@@ -1,6 +1,7 @@
 package com.bjanczak.model;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,13 +10,14 @@ import java.util.List;
 @Entity
 @Table(name = "node")
 @AllArgsConstructor
+@NoArgsConstructor
 @Setter
 public class Node {
 
     private Long id;
     private Long value;
     private Node parent;
-    private List<Node> childrens;
+    private List<Node> children;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -36,7 +38,7 @@ public class Node {
     }
 
     @OneToMany(mappedBy = "parent", orphanRemoval = true)
-    public List<Node> getChildrens() {
-        return childrens;
+    public List<Node> getChildren() {
+        return children;
     }
 }

@@ -20,6 +20,18 @@
 
 </ng-template>
 
+<div class="buttons">
+  <button type="button" [disabled]=isNodeSelected() id="add_button">Dodaj węzeł</button>
+  <button type="button" [disabled]=disableValueButton() id="value_button" (click)="openForm()">Zmień wartość</button>
+  <button type="button" [disabled]=disableDeleteButton() id="delete_button">Usuń węzeł</button>
+  <form #valueForm="ngForm" (ngSubmit)="setNodeValue(valueForm)" *ngIf="valueFormDisabled">
+    <div>
+      <span id="value_label">Wprowadź wartość:</span>
+      <input type="number" name="value" value="0" step="1">
+      <button class="submit">Zatwierdź</button>
+    </div>
+  </form>
+</div>
 
 <!-- Initiate the recursive template rendering. -->
 <div *ngIf="nodeList; else loading">
@@ -28,3 +40,11 @@
     [ngTemplateOutletContext]="{ node: nodeList[0] }">
   </ng-template>
 </div>
+<ng-template #loading>
+  <div *ngIf="dataAvailable; else notAvailable" class="loading">
+    Wczytywanie...
+  </div>
+  <ng-template #notAvailable> Dane nie dostępne.</ng-template>
+</ng-template>
+
+<div *ngIf="errorMessage" [ngClass]="'error'"> {{errorMessage}}</div>

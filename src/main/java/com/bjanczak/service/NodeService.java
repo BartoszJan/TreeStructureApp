@@ -29,4 +29,12 @@ public interface NodeService {
      * @return saved node NodeDto
      */
     public void saveNode(NodeDto node);
+
+    /**
+     * Create new node
+     *
+     * @param node NodeDto
+     * @return created node Node
+     */
+    public NodeDto createNode(NodeDto node);
 }

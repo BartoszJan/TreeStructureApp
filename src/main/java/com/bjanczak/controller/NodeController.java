@@ -1,6 +1,7 @@
 package com.bjanczak.controller;
 
 import com.bjanczak.exception.NodeNotFoundException;
+import com.bjanczak.model.Node;
 import com.bjanczak.model.dto.NodeDto;
 import com.bjanczak.service.NodeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,14 @@ public class NodeController {
         return nodeService.getRootWithChildren();
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/node", method = RequestMethod.POST)
-    public void createNode(@Valid @RequestBody NodeDto node) {
-        nodeService.saveNode(node);
+    public NodeDto createNode(@RequestBody NodeDto node) {
+        return nodeService.createNode(node);
     }
 
-    @RequestMapping("/persons/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/node/{id}", method = RequestMethod.PUT)
     public void updateNode(@PathVariable(value = "id") Long id, @Valid @RequestBody NodeDto nodeDetails) {
         NodeDto updatedNode = nodeService.findOneById(id).orElseThrow(() -> new NodeNotFoundException(id));
 

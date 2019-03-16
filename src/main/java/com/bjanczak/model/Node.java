@@ -19,6 +19,10 @@ public class Node {
     private Node parent;
     private List<Node> children;
 
+    public Node(Long id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

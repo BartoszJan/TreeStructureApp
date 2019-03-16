@@ -33,6 +33,11 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public void saveNode(NodeDto node) {
-        nodeRepository.save(node.toEntity(node));
+        nodeRepository.save(node.toEntity());
+    }
+
+    @Override
+    public NodeDto createNode(NodeDto node) {
+        return new NodeDto(nodeRepository.save(node.toEntity()));
     }
 }

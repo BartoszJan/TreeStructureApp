@@ -1,6 +1,5 @@
 <!-- Define the recursive template. -->
 <ng-template #nodeTemplateRef let-node="node">
-
   <div class="node" [class.node--selected]="( node === selectedTreeNode )">
     <a (click)="selectNode( node )" class="node__value">
       {{ node.value }}
@@ -20,17 +19,14 @@
 
 </ng-template>
 
-<div class="buttons">
-  <button type="button" [disabled]=isNodeSelected() id="add_button">Dodaj węzeł</button>
-  <button type="button" [disabled]=disableValueButton() id="value_button" (click)="openForm()">Zmień wartość</button>
-  <button type="button" [disabled]=disableDeleteButton() id="delete_button">Usuń węzeł</button>
-  <form #valueForm="ngForm" (ngSubmit)="setNodeValue(valueForm)" *ngIf="valueFormDisabled">
-    <div>
-      <span id="value_label">Wprowadź wartość:</span>
-      <input type="number" name="value" value="0" step="1">
-      <button class="submit">Zatwierdź</button>
-    </div>
-  </form>
+<!--  -->
+<div class="modify_form">
+  <button type="button" [disabled]=isNodeSelected() id="add_button" (click)="addNode()">Dodaj węzeł</button>
+  <button type="button" [disabled]=disableDeleteButton() id="delete_button" (click)="deleteNode()">Usuń węzeł</button>
+  <div *ngIf="!disableValueButton()">
+    <span id="value_label">Zmień wartość:</span>
+    <input type="number" name="nodeValue" [(ngModel)]="selectedTreeNode.value" value="0" step="1">
+  </div>
 </div>
 
 <!-- Initiate the recursive template rendering. -->

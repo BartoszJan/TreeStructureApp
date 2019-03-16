@@ -11,17 +11,15 @@ import { NodeService } from 'src/app/model/node.service';
 })
 export class NodesComponent implements OnInit {
 
-  nodeList: Node[];
-  dataAvailable: boolean;
-  valueFormDisabled: boolean;
-  errorMessage: String;
-  selectedTreeNode: Node;
+  nodeList : Node[];
+  dataAvailable : boolean;
+  errorMessage : String;
+  selectedTreeNode : Node;
 
   constructor(private nodeService: NodeService) {
     this.selectedTreeNode = null;
     this.dataAvailable = false;
     this.nodeList = null;
-    this.valueFormDisabled = false;
   }
 
   ngOnInit() {
@@ -43,13 +41,15 @@ export class NodesComponent implements OnInit {
         error =>  this.errorMessage = <any>error );
   }
 
+  public addNode() : void {
+    this.nodeService.createNode(this.selectedTreeNode)
+      .subscribe(data => console.log(data), error => console.log(error));
+    this.getNodeList();
+  }
+
   public selectNode( node: Node ) : void {
     this.selectedTreeNode = node;
     console.log( "Selected node with id:", node.id );
-  }
-
-  setNodeValue( valueForm : NgForm) {
-
   }
 
   public isNodeSelected() : boolean {
@@ -70,10 +70,6 @@ export class NodesComponent implements OnInit {
 
   public isRoot( node : Node ) : boolean {
     return node === this.nodeList[0];
-  }
-
-  public openForm() : void {
-    this.valueFormDisabled = true;
   }
 
 }

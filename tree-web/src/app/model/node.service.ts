@@ -30,14 +30,18 @@ export class NodeService {
       .pipe(map(data => data), catchError(this.handleError));
    }
 
-  public createNode(parentNode : Node) : Observable<any> {
-    var node = new Node();
-    node.parentId = parentNode.id;
-    node.children = null;
-    node.value = 0;
+  public createNode(node : Node) : Observable<any> {
+    var newNode = new Node();
+    newNode.parentId = node.id;
+    newNode.children = null;
+    newNode.value = 0;
 
-    return this.http.post(this.baseUrl +  "node", node, this.httpOptions);
+    return this.http.post(this.baseUrl +  "node", newNode, this.httpOptions);
   }
+
+  public copyNode(node : Node) : Observable<any> {
+      return this.http.post(this.baseUrl +  "copy_node", node, this.httpOptions);
+    }
 
   public saveNode(node : Node) : Observable<any> {
     return this.http.put(this.baseUrl +  "node" + "/" + node.id, node, this.httpOptions);

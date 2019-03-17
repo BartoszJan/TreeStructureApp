@@ -45,4 +45,12 @@ public interface NodeService {
      * @param node Node
      */
     public void deleteNode(Node node);
+
+    /**
+     * Copy node
+     *
+     * @param node Node
+     * @return nodeDto NodeDto
+     */
+    NodeDto copyNodeWithChildren(Node node);
 }

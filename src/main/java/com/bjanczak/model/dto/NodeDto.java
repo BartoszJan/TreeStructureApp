@@ -34,6 +34,9 @@ public class NodeDto {
         node.setId(this.getId());
         node.setParent(new Node(this.getParentId()));
         node.setValue(this.getValue());
+        node.setChildren(this.children != null
+                ? this.children.stream().map(NodeDto::toEntity).collect(Collectors.toList())
+                : null);
         return node;
     }
 }

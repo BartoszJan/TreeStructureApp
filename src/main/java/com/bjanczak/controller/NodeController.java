@@ -31,6 +31,12 @@ public class NodeController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/copy_node", method = RequestMethod.POST)
+    public NodeDto copyNode(@RequestBody NodeDto node) {
+        return nodeService.copyNodeWithChildren(node.toEntity());
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/node/{id}", method = RequestMethod.PUT)
     public NodeDto updateNode(@PathVariable(value = "id") Long id, @Valid @RequestBody NodeDto nodeDetails) {
         Node updatedNode = nodeService.findOneById(id).orElseThrow(() -> new NodeNotFoundException(id));

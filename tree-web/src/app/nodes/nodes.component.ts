@@ -53,16 +53,26 @@ export class NodesComponent implements OnInit {
   }
 
   public updateNode() {
-    this.selectedTreeNode.value = this.value;
-    this.nodeService.saveNode(this.selectedTreeNode)
+    if(Number.isInteger(this.value)) {
+      this.selectedTreeNode.value = this.value;
+      this.nodeService.saveNode(this.selectedTreeNode)
+        .subscribe(data => {
+            console.log(data);
+            this.getNodeList();
+          }, error => console.log(error) );
+    }
+  }
+
+  public deleteNode() {
+    this.nodeService.deleteNode(this.selectedTreeNode)
       .subscribe(data => {
           console.log(data);
           this.getNodeList();
         }, error => console.log(error) );
   }
 
-  public deleteNode() {
-    this.nodeService.deleteNode(this.selectedTreeNode)
+  public copyNode() {
+    this.nodeService.copyNode(this.selectedTreeNode)
       .subscribe(data => {
           console.log(data);
           this.getNodeList();
@@ -83,7 +93,7 @@ export class NodesComponent implements OnInit {
     return this.isNodeSelected() || this.isLeaf(this.selectedTreeNode);
   }
 
-  public disableDeleteButton() : boolean {
+  public disableDeleteCopyButton() : boolean {
     return this.isNodeSelected() || this.isRoot(this.selectedTreeNode);
   }
 

@@ -8,6 +8,7 @@ import com.bjanczak.service.NodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,10 @@ public class NodeServiceImpl implements NodeService {
     @Override
     public List<NodeDto> getRootWithChildren() {
         Node root = nodeRepository.findByParentId(null);
+        if (root == null) {
+            root = new Node(null, 0L, null, new ArrayList<>());
+            saveNode(root);
+        }
         return Collections.singletonList(new NodeDto(root));
     }
 
@@ -55,6 +60,26 @@ public class NodeServiceImpl implements NodeService {
         if (isLeaf(deletedNodeParent)) {
             deletedNodeParent.setValue(calculateLeafValue(new NodeDto(deletedNodeParent)));
             saveNode(deletedNodeParent);
+        }
+    }
+
+    @Override
+    public NodeDto copyNodeWithChildren(Node node) {
+        Node copyNode = new Node();
+        copyNode.setValue(node.getValue());
+        copyNode.setParent(node.getParent());
+        Node savedNode = saveNode(copyNode);
+        copyChildren(savedNode, node.getChildren());
+        return new NodeDto(savedNode);
+    }
+
+    private void copyChildren(Node copyNode, List<Node> children) {
+        for (Node n : children) {
+            Node newNode = new Node();
+            newNode.setParent(copyNode);
+            newNode.setValue(n.getValue());
+            Node savedNode = saveNode(newNode);
+            copyChildren(savedNode, n.getChildren());
         }
     }
 

@@ -1,51 +1,51 @@
 :host {
-	display: block ;
-	font-size: 18px ;
+	display: block;
+	font: bold 20px/1.5 Helvetica;
 	margin-top: 2%;
 	margin-left: 4%;
 }
 
 .node {
 	&__value {
-		color: red ;
-		cursor: pointer ;
-		text-decoration: underline ;
+		color: red;
+		cursor: pointer;
+		text-decoration: underline;
 	}
 
 	&__leaf {
-    color: green ;
-    cursor: pointer ;
-    text-decoration: underline ;
+    color: forestgreen;
+    cursor: pointer;
+    text-decoration: underline;
   }
 
   &__root {
-     color: brown ;
-    cursor: pointer ;
-    text-decoration: underline ;
+     color: orange;
+    cursor: pointer;
+    text-decoration: underline;
   }
 
 	&__children {
-		border-left: 3px solid #CCCCCC ;
-		margin: 5px 0px 5px 30px ;
-		padding-left: 10px ;
+		border-left: 3px solid #CCCCCC;
+		margin: 5px 0px 5px 30px;
+		padding-left: 10px;
 	}
 
 	&--selected {
 		> .node {
 			&__value {
-				background-color: red ;
-				color: white ;
-				font-weight: bold ;
+				background-color: red;
+				color: white;
+				font-weight: bold;
 			}
 			&__leaf {
-			  background-color: green ;
-        color: white ;
-        font-weight: bold ;
+			  background-color: ForestGreen;
+        color: white;
+        font-weight: bold;
 			}
 			&__root {
-        background-color: brown ;
-        color: white ;
-        font-weight: bold ;
+        background-color: orange;
+        color: white;
+        font-weight: bold;
       }
 		}
 	}
@@ -60,20 +60,53 @@
 
 .modify_form {
   display: flex;
+  font: bold 18px/1.5 Helvetica;
+  color: white;
 }
 
-#add_button {
+button {
+  background-color: white;
   margin-right: 10px;
+  margin-bottom: 20px;
+  font: 17px/1.5 Helvetica;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  cursor: pointer;
 }
 
-#delete_button {
-  margin-right: 10px;
+button:hover {
+  color: white;
 }
 
-#copy_button {
-  margin-right: 10px;
+.add_button {
+  color: green;
+}
+
+.add_button:hover {
+  background-color: green;
+}
+
+.delete_button {
+  color: red;
+}
+
+.delete_button:hover {
+  background-color: red;
+}
+
+.copy_button {
+  color: blue;
+}
+
+.copy_button:hover {
+  background-color: blue;
 }
 
 #value_input {
-
+  font: 17px/1.5 Helvetica;
+  padding-left: 10px;
+  width: 120px;
 }

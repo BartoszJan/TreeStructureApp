@@ -21,13 +21,13 @@
 
 <!--  -->
 <div class="modify_form">
-  <button type="button" [disabled]=isNodeSelected() id="add_button" (click)="addNode()">Dodaj węzeł</button>
-  <button type="button" [disabled]=disableDeleteCopyButton() id="delete_button" (click)="deleteNode()">Usuń węzeł</button>
-  <button type="button" [disabled]=disableDeleteCopyButton() id="copy_button" (click)="copyNode()">Kopiuj węzeł</button>
+  <button type="button" [disabled]=isNodeSelected() class="add_button" (click)="addNode()">Dodaj węzeł</button>
+  <button type="button" [disabled]=disableDeleteCopyButton() class="delete_button" (click)="deleteNode()">Usuń węzeł</button>
+  <button type="button" [disabled]=disableDeleteCopyButton() class="copy_button" (click)="copyNode()">Kopiuj węzeł</button>
   <div *ngIf="!disableValueForm()">
     <span id="value_label">Zmień wartość:</span>
     <input type="number" id="value_input" name="nodeValue" [(ngModel)]="value" value="0" step="1" required>
-    <button type="submit" id="submit_button" (click)="updateNode()">Zatwierdź</button>
+    <button type="submit" id="submit_button" (click)="updateNode()" class="add_button">Zatwierdź</button>
   </div>
 </div>
 

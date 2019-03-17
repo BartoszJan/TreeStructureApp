@@ -13,13 +13,14 @@ export class NodesComponent implements OnInit {
 
   nodeList : Node[];
   dataAvailable : boolean;
-  errorMessage : String;
   selectedTreeNode : Node;
+  value : number;
 
   constructor(private nodeService: NodeService) {
     this.selectedTreeNode = null;
     this.dataAvailable = false;
     this.nodeList = null;
+    this.value = 0;
   }
 
   ngOnInit() {
@@ -34,21 +35,43 @@ export class NodesComponent implements OnInit {
         nodeList => {
           if(nodeList.length > 0) {
             this.nodeList = nodeList;
+            console.log(nodeList);
+            this. selectedTreeNode = null;
           } else {
             this.dataAvailable = false;
           }
-        },
-        error =>  this.errorMessage = <any>error );
+        }, error => console.log(error) );
   }
 
   public addNode() : void {
     this.nodeService.createNode(this.selectedTreeNode)
-      .subscribe(data => console.log(data), error => console.log(error));
-    this.getNodeList();
+      .subscribe(data => {
+          console.log(data);
+          this.getNodeList();
+          this. selectedTreeNode = null;
+        }, error => console.log(error) );
+  }
+
+  public updateNode() {
+    this.selectedTreeNode.value = this.value;
+    this.nodeService.saveNode(this.selectedTreeNode)
+      .subscribe(data => {
+          console.log(data);
+          this.getNodeList();
+        }, error => console.log(error) );
+  }
+
+  public deleteNode() {
+    this.nodeService.deleteNode(this.selectedTreeNode)
+      .subscribe(data => {
+          console.log(data);
+          this.getNodeList();
+        }, error => console.log(error) );
   }
 
   public selectNode( node: Node ) : void {
     this.selectedTreeNode = node;
+    this.value = node.value;
     console.log( "Selected node with id:", node.id );
   }
 
@@ -56,7 +79,7 @@ export class NodesComponent implements OnInit {
     return this.selectedTreeNode === null;
   }
 
-  public disableValueButton() : boolean {
+  public disableValueForm() : boolean {
     return this.isNodeSelected() || this.isLeaf(this.selectedTreeNode);
   }
 
@@ -65,11 +88,19 @@ export class NodesComponent implements OnInit {
   }
 
   public isLeaf( node : Node ) : boolean {
-    return node.children === null || node.children.length === 0;
+    return (node.children === null || node.children.length === 0) && !this.isRoot(node);
   }
 
   public isRoot( node : Node ) : boolean {
     return node === this.nodeList[0];
   }
 
+  calculateClasses( node : Node ) : string {
+    if(node.parentId === null)
+      return "node__root";
+    else if(node.children.length > 0)
+      return "node__value";
+    else
+      return "node__leaf";
+  }
 }

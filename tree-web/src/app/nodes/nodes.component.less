@@ -12,6 +12,18 @@
 		text-decoration: underline ;
 	}
 
+	&__leaf {
+    color: green ;
+    cursor: pointer ;
+    text-decoration: underline ;
+  }
+
+  &__root {
+     color: brown ;
+    cursor: pointer ;
+    text-decoration: underline ;
+  }
+
 	&__children {
 		border-left: 3px solid #CCCCCC ;
 		margin: 5px 0px 5px 30px ;
@@ -25,13 +37,18 @@
 				color: white ;
 				font-weight: bold ;
 			}
+			&__leaf {
+			  background-color: green ;
+        color: white ;
+        font-weight: bold ;
+			}
+			&__root {
+        background-color: brown ;
+        color: white ;
+        font-weight: bold ;
+      }
 		}
 	}
-}
-
-.error {
-  color: #FF0000;
-  font-size: 20px;
 }
 
 .loading {
@@ -51,4 +68,8 @@
 
 #delete_button {
   margin-right: 10px;
+}
+
+#value_input {
+
 }

@@ -1,5 +1,6 @@
 package com.bjanczak.service;
 
+import com.bjanczak.model.Node;
 import com.bjanczak.model.dto.NodeDto;
 
 import java.util.List;
@@ -20,21 +21,28 @@ public interface NodeService {
      * @param id Long
      * @return node Optional<NodeDto>
      */
-    public Optional<NodeDto> findOneById(Long id);
+    public Optional<Node> findOneById(Long id);
 
     /**
-     * Save node
+     * Update node values
      *
      * @param node Node
-     * @return saved node NodeDto
+     * @return updated node NodeDto
      */
-    public void saveNode(NodeDto node);
+    public NodeDto updateNode(Node node);
 
     /**
      * Create new node
      *
      * @param node NodeDto
-     * @return created node Node
+     * @return created node NodeDto
      */
     public NodeDto createNode(NodeDto node);
+
+    /**
+     * Delete node
+     *
+     * @param node Node
+     */
+    public void deleteNode(Node node);
 }

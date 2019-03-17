@@ -1,7 +1,7 @@
 <!-- Define the recursive template. -->
 <ng-template #nodeTemplateRef let-node="node">
   <div class="node" [class.node--selected]="( node === selectedTreeNode )">
-    <a (click)="selectNode( node )" class="node__value">
+    <a (click)="selectNode( node )" [ngClass]="calculateClasses( node )" >
       {{ node.value }}
     </a>
     <div *ngIf="node.children.length" class="node__children">
@@ -23,9 +23,10 @@
 <div class="modify_form">
   <button type="button" [disabled]=isNodeSelected() id="add_button" (click)="addNode()">Dodaj węzeł</button>
   <button type="button" [disabled]=disableDeleteButton() id="delete_button" (click)="deleteNode()">Usuń węzeł</button>
-  <div *ngIf="!disableValueButton()">
+  <div *ngIf="!disableValueForm()">
     <span id="value_label">Zmień wartość:</span>
-    <input type="number" name="nodeValue" [(ngModel)]="selectedTreeNode.value" value="0" step="1">
+    <input type="number" id="value_input" name="nodeValue" [(ngModel)]="value" value="0" step="1">
+    <button type="button" id="submit_button" (click)="updateNode()">Zatwierdź</button>
   </div>
 </div>
 
@@ -42,5 +43,3 @@
   </div>
   <ng-template #notAvailable> Dane nie dostępne.</ng-template>
 </ng-template>
-
-<div *ngIf="errorMessage" [ngClass]="'error'"> {{errorMessage}}</div>

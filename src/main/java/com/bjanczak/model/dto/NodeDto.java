@@ -21,7 +21,9 @@ public class NodeDto {
     public NodeDto(Node node) {
         this.id = node.getId();
         this.value = node.getValue();
-        this.parentId = node.getId();
+        this.parentId = node.getParent() != null
+                ? node.getParent().getId()
+                : null;
         this.children = node.getChildren() != null
                 ? node.getChildren().stream().map(NodeDto::new).collect(Collectors.toList())
                 : null;

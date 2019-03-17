@@ -20,9 +20,8 @@ git clone https://github.com/BartoszJan/TreeStructureApp
 This will get a copy of the project installed locally. To install all of its dependencies and start each app, follow
 the instructions below.
 
-First set up database connection settings in src/main/resources/application.properties.
-
-To run the server run in project directory:
+To run the server first you need set up database connection settings in src/main/resources/application.properties.
+Then run in project directory:
 
 ```bash
 mvn spring-boot:run
